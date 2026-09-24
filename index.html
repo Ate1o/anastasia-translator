@@ -3,594 +3,495 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Russian–English Translator & Tutor</title>
+<title>Anastasia Shabanova, Russian–English translator</title>
+<meta name="description" content="Russian–English document translation, interpreting and editing by Anastasia Shabanova.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style id="css">
 :root{
-  --bg:#E8EEFF; --bg2:#F6F2FF; --text:#141A3A; --muted:rgba(20,26,58,.66);
-  --glass:rgba(255,255,255,.52); --glass-strong:rgba(255,255,255,.72); --edge:rgba(255,255,255,.85); --edge-soft:rgba(20,26,58,.10);
-  --neva:#2F8FE0; --amber:#E0922F; --lav:#8C6BE8; --shadow:0 20px 50px -20px rgba(40,50,120,.35);
-  --blob1:#9CD4FF; --blob2:#FFD3A1; --blob3:#CBB8FF;
-  --radius-lg:28px; --radius-md:18px; --radius-sm:12px;
-  --display:"Unbounded", "Arial Black", system-ui, sans-serif;
-  --body:"Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --bg:#EDF1F8; --text:#15192E; --muted:#5A6180; --line:rgba(21,25,46,.10);
+  --glass:rgba(255,255,255,.58); --glass-2:rgba(255,255,255,.78); --edge:rgba(255,255,255,.9);
+  --cobalt:#2446B8; --cobalt-soft:rgba(36,70,184,.09); --on-cobalt:#fff;
+  --b1:rgba(62,98,220,.30); --b2:rgba(120,160,255,.28); --b3:rgba(36,70,184,.18);
+  --shadow:0 18px 40px -24px rgba(21,35,90,.35);
+  --font:"Onest","Segoe UI",system-ui,-apple-system,sans-serif;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0E1433; --bg2:#1A1446; --text:#EEF2FF; --muted:rgba(238,242,255,.68);
-    --glass:rgba(255,255,255,.07); --glass-strong:rgba(255,255,255,.12); --edge:rgba(255,255,255,.20); --edge-soft:rgba(255,255,255,.10);
-    --neva:#7CCBFF; --amber:#F2B66D; --lav:#B89CFF; --shadow:0 24px 60px -24px rgba(0,0,0,.7);
-    --blob1:#1F5FA8; --blob2:#8A4A1E; --blob3:#4B2FA0;
+    --bg:#0E1430; --text:#EDF0FA; --muted:#A3AACB; --line:rgba(255,255,255,.10);
+    --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.10); --edge:rgba(255,255,255,.14);
+    --cobalt:#8FA8FF; --cobalt-soft:rgba(143,168,255,.12); --on-cobalt:#0E1430;
+    --b1:rgba(50,84,210,.45); --b2:rgba(90,70,200,.30); --b3:rgba(30,110,200,.30);
+    --shadow:0 20px 50px -24px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0E1433; --bg2:#1A1446; --text:#EEF2FF; --muted:rgba(238,242,255,.68);
-  --glass:rgba(255,255,255,.07); --glass-strong:rgba(255,255,255,.12); --edge:rgba(255,255,255,.20); --edge-soft:rgba(255,255,255,.10);
-  --neva:#7CCBFF; --amber:#F2B66D; --lav:#B89CFF; --shadow:0 24px 60px -24px rgba(0,0,0,.7);
-  --blob1:#1F5FA8; --blob2:#8A4A1E; --blob3:#4B2FA0;
+  --bg:#0E1430; --text:#EDF0FA; --muted:#A3AACB; --line:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.06); --glass-2:rgba(255,255,255,.10); --edge:rgba(255,255,255,.14);
+  --cobalt:#8FA8FF; --cobalt-soft:rgba(143,168,255,.12); --on-cobalt:#0E1430;
+  --b1:rgba(50,84,210,.45); --b2:rgba(90,70,200,.30); --b3:rgba(30,110,200,.30);
+  --shadow:0 20px 50px -24px rgba(0,0,0,.6);
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px)}
-body{margin:0;background:linear-gradient(160deg,var(--bg),var(--bg2));color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{max-width:100%}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 button,input,textarea,select{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--neva);outline-offset:3px;border-radius:8px}
+:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px;border-radius:6px}
 
-/* aurora background */
-.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.aurora span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;animation:drift 26s ease-in-out infinite alternate}
-.aurora span:nth-child(1){width:52vw;height:52vw;left:-12vw;top:-10vw;background:var(--blob1)}
-.aurora span:nth-child(2){width:40vw;height:40vw;right:-8vw;top:18vh;background:var(--blob2);animation-duration:32s;animation-delay:-8s}
-.aurora span:nth-child(3){width:46vw;height:46vw;left:24vw;bottom:-20vw;background:var(--blob3);animation-duration:38s;animation-delay:-14s}
-@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,4vh) scale(1.12)}100%{transform:translate(-4vw,8vh) scale(.95)}}
-.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;background-image:radial-gradient(currentColor 1px,transparent 1px);background-size:3px 3px}
+.bgfx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bgfx i{position:absolute;border-radius:50%;filter:blur(90px);animation:drift 40s ease-in-out infinite alternate}
+.bgfx i:nth-child(1){width:48vw;height:48vw;left:-14vw;top:-14vw;background:var(--b1)}
+.bgfx i:nth-child(2){width:38vw;height:38vw;right:-10vw;top:30vh;background:var(--b2);animation-delay:-12s}
+.bgfx i:nth-child(3){width:40vw;height:40vw;left:30vw;bottom:-22vw;background:var(--b3);animation-delay:-24s}
+@keyframes drift{to{transform:translate(5vw,6vh) scale(1.08)}}
 
-/* glass */
-.glass{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:var(--radius-lg);backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);box-shadow:var(--shadow), inset 0 1px 0 var(--edge);overflow:hidden}
-.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,255,255,0) 42%);opacity:.6}
-.shine::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(360px circle at var(--mx,50%) var(--my,-40%),rgba(255,255,255,.28),transparent 60%);opacity:0;transition:opacity .35s}
-.shine:hover::after{opacity:1}
-
-.wrap{position:relative;z-index:1;width:min(1180px,100% - 40px);margin-inline:auto}
+.glass{position:relative;background:var(--glass);border:1px solid var(--edge);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);box-shadow:var(--shadow)}
+.wrap{position:relative;z-index:1;width:min(1120px,100% - 40px);margin-inline:auto}
 
 /* header */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;padding:14px 0}
-.bar{display:flex;align-items:center;gap:18px;padding:10px 12px 10px 20px;border-radius:999px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:600;font-size:15px;white-space:nowrap}
-.brand .mark{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 200deg,var(--neva),var(--lav),var(--amber),var(--neva));color:#fff;font-size:13px;font-weight:800;animation:spin 14s linear infinite}
-.brand .mark b{animation:spin 14s linear infinite reverse;display:block}
-@keyframes spin{to{transform:rotate(360deg)}}
-nav.links{display:flex;gap:4px;margin-left:auto}
-nav.links a{text-decoration:none;padding:8px 14px;border-radius:999px;font-weight:600;font-size:15px;color:var(--muted);transition:background .25s,color .25s}
-nav.links a:hover{background:var(--glass-strong);color:var(--text)}
-.langswitch{position:relative;display:flex;padding:4px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--edge-soft)}
-.langswitch button{position:relative;z-index:1;border:0;background:none;padding:6px 12px;font-weight:700;font-size:13px;cursor:pointer;border-radius:999px;color:var(--muted);transition:color .3s}
-.langswitch button[aria-pressed="true"]{color:#fff}
-.langswitch .pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:999px;background:linear-gradient(135deg,var(--neva),var(--lav));transition:transform .45s cubic-bezier(.6,-0.2,.2,1.3)}
-.langswitch[data-lang="ru"] .pill{transform:translateX(100%)}
-.menu-btn{display:none;border:0;background:var(--glass-strong);width:42px;height:42px;border-radius:50%;cursor:pointer}
-.menu-btn svg{width:20px;height:20px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;padding:14px 0}
+.bar{display:flex;align-items:center;gap:16px;padding:8px 8px 8px 18px;border-radius:16px}
+.brand{text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;margin-right:auto}
+.links{display:flex;gap:2px}
+.links a{text-decoration:none;padding:8px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--muted);transition:color .2s,background .2s}
+.links a:hover{color:var(--text);background:var(--cobalt-soft)}
+.lang{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.lang button{border:0;background:none;padding:7px 11px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--cobalt);color:var(--on-cobalt)}
+.menu{display:none;border:1px solid var(--line);background:none;width:40px;height:40px;border-radius:10px;cursor:pointer}
 
-.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:999px;transition:transform .25s, box-shadow .25s, background .25s}
-.btn-primary{color:#fff;background:linear-gradient(135deg,var(--neva),var(--lav));box-shadow:0 12px 30px -10px var(--lav)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px var(--lav)}
-.btn-ghost{background:var(--glass-strong);border:1px solid var(--edge);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.btn-ghost:hover{transform:translateY(-2px)}
-.btn-sm{padding:9px 16px;font-size:14px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;cursor:pointer;text-decoration:none;font-weight:600;font-size:16px;padding:13px 22px;border-radius:12px;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-main{background:var(--cobalt);color:var(--on-cobalt)}
+.btn-line{background:var(--glass-2);border-color:var(--line)}
+.btn-sm{padding:9px 14px;font-size:14px}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:70px 0 90px}
-.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,5.4vw,68px);line-height:1.04;letter-spacing:-.02em;margin:0 0 24px;text-wrap:balance}
-.hero p.lead{font-size:clamp(17px,1.6vw,20px);color:var(--muted);max-width:52ch;margin:0 0 34px}
-.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
-.availability{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;padding:8px 16px 8px 12px;border-radius:999px;font-size:14px;font-weight:600}
-.availability i{width:9px;height:9px;border-radius:50%;background:#3FD08A;box-shadow:0 0 0 0 rgba(63,208,138,.6);animation:pulse 2.2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(63,208,138,0)}100%{box-shadow:0 0 0 0 rgba(63,208,138,0)}}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:80px 0 100px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--muted);margin-bottom:22px}
+.status i{width:8px;height:8px;border-radius:50%;background:#2FB872}
+.hero h1{font-size:clamp(40px,6vw,76px);line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0 0 14px}
+.hero .role{font-size:clamp(19px,2vw,24px);font-weight:500;margin:0 0 22px;color:var(--cobalt)}
+.langs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.tag{display:inline-block;padding:6px 12px;border-radius:8px;background:var(--cobalt-soft);color:var(--text);font-size:14px;font-weight:500}
+.hero p.intro{color:var(--muted);max-width:48ch;margin:0 0 32px;font-size:18px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
 
-.lens{aspect-ratio:1/1.05;display:flex;flex-direction:column;justify-content:space-between;padding:30px;border-radius:40px}
-.lens .orb{position:absolute;width:70%;aspect-ratio:1;border-radius:50%;right:-18%;top:-16%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.7),rgba(255,255,255,0) 60%),linear-gradient(135deg,var(--neva),var(--lav));opacity:.55;filter:blur(2px);animation:float 9s ease-in-out infinite}
-@keyframes float{50%{transform:translate(-14px,18px)}}
-.lens .pair{position:relative;display:flex;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--edge-soft);font-size:13px;font-weight:700}
-.chip.on{background:linear-gradient(135deg,var(--neva),var(--lav));color:#fff;border-color:transparent}
-.morph{position:relative;font-family:var(--display);font-weight:800;font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:-.02em;min-height:1.1em;word-break:break-word}
-.morph-sub{position:relative;color:var(--muted);font-size:15px;margin-top:10px;min-height:1.5em}
-.lens .foot{position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;font-size:14px;color:var(--muted)}
-.dots{display:flex;gap:6px}
-.dots i{width:7px;height:7px;border-radius:50%;background:var(--edge-soft);transition:background .3s,width .3s}
-.dots i.on{width:22px;border-radius:6px;background:var(--neva)}
+.sample{border-radius:22px;padding:8px}
+.sample .pane{padding:22px 24px;border-radius:16px}
+.sample .pane + .pane{margin-top:8px;background:var(--glass-2)}
+.sample small{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px}
+.sample p{margin:0;font-size:19px;line-height:1.45;min-height:2.9em;transition:opacity .45s,transform .45s}
+.sample p.out{opacity:0;transform:translateY(6px)}
+.sample .pane + .pane p{color:var(--cobalt);font-weight:500}
+.sample .nav{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 6px}
+.sample .nav span{font-size:13px;color:var(--muted)}
+.bars{display:flex;gap:4px}
+.bars b{width:18px;height:3px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.bars b.on::after{content:"";position:absolute;inset:0;background:var(--cobalt);animation:fill 5s linear forwards}
+@keyframes fill{from{transform:translateX(-100%)}to{transform:none}}
 
 /* sections */
-section.block{padding:70px 0}
-.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
-.sec-head h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.6vw,44px);line-height:1.1;letter-spacing:-.015em;margin:0;max-width:18ch}
-.sec-head p{margin:0;color:var(--muted);max-width:44ch}
-
-.grid{display:grid;gap:18px}
+.sec{padding:70px 0}
+.sec h2{font-size:clamp(28px,3.4vw,40px);letter-spacing:-.025em;line-height:1.1;margin:0 0 12px;font-weight:700}
+.sec .sub{color:var(--muted);max-width:56ch;margin:0 0 36px}
+.grid{display:grid;gap:16px}
 .g3{grid-template-columns:repeat(3,1fr)}
 .g2{grid-template-columns:repeat(2,1fr)}
-.card{padding:28px;border-radius:var(--radius-lg);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
-.card:hover{transform:translateY(-6px)}
-.icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px;background:linear-gradient(135deg,var(--neva),var(--lav));color:#fff;box-shadow:0 10px 24px -10px var(--lav)}
-.icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.card h3{font-family:var(--display);font-weight:600;font-size:21px;line-height:1.25;margin:0 0 10px}
-.card p{margin:0 0 20px;color:var(--muted)}
-.price{position:relative;display:inline-block;font-weight:700;padding:7px 14px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--edge-soft);font-size:14px}
 
-/* documents marquee-like cloud */
-.docs{padding:34px;border-radius:32px}
-.doc-cloud{position:relative;display:flex;flex-wrap:wrap;gap:10px}
-.doc-cloud span{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:var(--glass-strong);border:1px solid var(--edge-soft);font-weight:600;transition:transform .3s, background .3s}
-.doc-cloud span:hover{transform:translateY(-3px) rotate(-1deg);background:var(--glass)}
-.doc-cloud svg{width:16px;height:16px;fill:none;stroke:var(--neva);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.docs-note{position:relative;margin:22px 0 0;color:var(--muted);font-size:15px}
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+.about .text{padding:36px;border-radius:22px}
+.about .text p{font-size:19px;line-height:1.6;margin:0}
+.about ul{list-style:none;margin:0;padding:28px;border-radius:22px;display:grid;gap:4px;align-content:start}
+.about li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-weight:500}
+.about li:last-child{border-bottom:0}
+.about li svg{flex:none;width:20px;height:20px;margin-top:3px;stroke:var(--cobalt);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-/* courses */
-.course{display:flex;flex-direction:column}
-.course .meta{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.course .fmt{position:relative;color:var(--muted);font-size:14px;margin:auto 0 18px}
-.course .row{position:relative;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.course.feature{grid-column:span 2;background:linear-gradient(135deg,rgba(124,203,255,.18),rgba(184,156,255,.16)),var(--glass)}
+.svc{padding:28px;border-radius:22px;display:flex;flex-direction:column}
+.svc h3{font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
+.svc > p{color:var(--muted);margin:0 0 22px}
+.rates{margin:auto 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.rates li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.rates li span:first-child{color:var(--muted)}
+.rates li span:last-child{font-weight:600;white-space:nowrap;text-align:right}
+.note{margin:22px 0 0;color:var(--muted);font-size:15px}
 
-/* about */
-.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px}
-.portrait{min-height:360px;border-radius:32px;display:flex;align-items:flex-end;padding:28px}
-.portrait .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:clamp(90px,14vw,170px);background:linear-gradient(160deg,var(--neva),var(--lav) 55%,var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent;opacity:.9}
-.portrait .who{position:relative}
-.portrait .who strong{display:block;font-family:var(--display);font-size:22px;font-weight:600}
-.portrait .who span{color:var(--muted);font-size:15px}
-.about-text{padding:34px;border-radius:32px}
-.about-text p{position:relative;margin:0 0 24px;font-size:18px;max-width:62ch}
-.creds{position:relative;list-style:none;padding:0;margin:0;display:grid;gap:10px}
-.creds li{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:var(--radius-md);background:var(--glass-strong);border:1px solid var(--edge-soft);font-weight:600}
-.creds svg{flex:none;width:20px;height:20px;margin-top:3px;fill:none;stroke:var(--neva);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.work{padding:26px;border-radius:22px;transition:transform .3s}
+.work:hover{transform:translateY(-4px)}
+.work .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.work .meta .tag{font-size:13px}
+.work h3{font-size:19px;margin:0 0 8px}
+.work p{margin:0;color:var(--muted);font-size:15px}
 
-/* testimonials */
-.quote{padding:30px}
-.quote blockquote{position:relative;margin:0 0 20px;font-size:18px;line-height:1.55}
-.quote figcaption{position:relative;color:var(--muted);font-size:15px}
-.quote figcaption b{color:var(--text)}
+.quote{margin:0;padding:30px;border-radius:22px}
+.quote blockquote{margin:0 0 18px;font-size:18px;line-height:1.55}
+.quote figcaption{font-size:15px;color:var(--muted)}
+.quote figcaption b{color:var(--text);font-weight:600}
 
-/* contact */
-.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px}
-.contact-info{padding:34px;border-radius:32px}
-.contact-info h2{position:relative;font-family:var(--display);font-weight:600;font-size:clamp(28px,3.4vw,42px);line-height:1.1;margin:0 0 16px}
-.contact-info p{position:relative;color:var(--muted);margin:0 0 26px}
-.clist{position:relative;display:grid;gap:10px}
-.clist a,.clist div{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:var(--radius-md);background:var(--glass-strong);border:1px solid var(--edge-soft);text-decoration:none;font-weight:600;transition:transform .25s}
-.clist a:hover{transform:translateX(4px)}
-.clist svg{width:20px;height:20px;fill:none;stroke:var(--neva);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
-form.req{padding:34px;border-radius:32px;display:grid;gap:14px;grid-template-columns:1fr 1fr}
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.contact .info{padding:32px;border-radius:22px}
+.contact .info h2{margin-bottom:12px}
+.contact .info p{color:var(--muted);margin:0 0 24px}
+.clist{display:grid;gap:2px}
+.clist > *{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none;font-weight:500}
+.clist > *:last-child{border-bottom:0}
+.clist svg{width:19px;height:19px;flex:none;stroke:var(--cobalt);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+form.req{padding:32px;border-radius:22px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
 form.req .full{grid-column:1/-1}
-.field{position:relative;display:grid;gap:6px}
-.field label{font-size:14px;font-weight:700;color:var(--muted)}
-.field input,.field textarea,.field select{width:100%;padding:13px 16px;border-radius:var(--radius-sm);border:1px solid var(--edge-soft);background:var(--glass-strong);outline:none;transition:border-color .25s, box-shadow .25s}
-.field select option{color:#141A3A}
+.field{display:grid;gap:6px}
+.field label{font-size:14px;font-weight:600}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--glass-2);outline:none;transition:border-color .2s}
+.field select option{color:#15192E}
 .field textarea{min-height:130px;resize:vertical}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--neva);box-shadow:0 0 0 4px color-mix(in srgb,var(--neva) 22%,transparent)}
-.form-foot{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.form-foot small{color:var(--muted)}
-.form-msg{position:relative;font-weight:600;color:#E0556B;min-height:1.4em}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cobalt)}
+.ffoot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.ffoot small{color:var(--muted)}
+.fmsg{color:#D14356;font-weight:500;min-height:1.4em;font-size:15px}
 
-footer{position:relative;z-index:1;padding:40px 0 50px;color:var(--muted);font-size:14px}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer{position:relative;z-index:1;padding:36px 0 48px;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:24px}
 
-/* reveal + language swap */
-.reveal{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)}
-.reveal.in{opacity:1;transform:none}
-main.swap{animation:swap .5s ease}
-@keyframes swap{0%{opacity:.25;filter:blur(6px)}100%{opacity:1;filter:none}}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
 
 /* admin */
-.admin-fab{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:60;display:none}
-.admin-fab.show{display:inline-flex}
-.drawer-bg{position:fixed;inset:0;z-index:70;background:rgba(10,14,40,.35);opacity:0;pointer-events:none;transition:opacity .35s}
-.drawer-bg.open{opacity:1;pointer-events:auto}
-.drawer{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(600px,100%);display:flex;flex-direction:column;border-radius:28px 0 0 28px;background:var(--glass-strong);transform:translateX(105%);transition:transform .55s cubic-bezier(.2,.9,.2,1);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:60;display:none;box-shadow:var(--shadow)}
+.fab.show{display:inline-flex}
+.dbg{position:fixed;inset:0;z-index:70;background:rgba(10,14,40,.3);opacity:0;pointer-events:none;transition:opacity .3s}
+.dbg.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:80;width:min(580px,100%);display:flex;flex-direction:column;background:var(--bg);border-left:1px solid var(--line);transform:translateX(102%);transition:transform .45s cubic-bezier(.2,.9,.2,1);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 .drawer.open{transform:none}
-.drawer header{position:relative;padding:22px 24px 12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.drawer header h2{margin:0;font-family:var(--display);font-weight:600;font-size:20px}
-.drawer .close{border:0;background:var(--glass);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1}
-.tabs{position:relative;display:flex;gap:6px;padding:0 24px 14px;overflow-x:auto;scrollbar-width:none}
-.tabs button{flex:none;border:1px solid var(--edge-soft);background:var(--glass);padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer}
-.tabs button[aria-selected="true"]{background:linear-gradient(135deg,var(--neva),var(--lav));color:#fff;border-color:transparent}
-.dbody{position:relative;flex:1;overflow-y:auto;padding:4px 24px 24px}
-.dfoot{position:relative;padding:16px 24px;border-top:1px solid var(--edge-soft);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.dfoot .status{margin-right:auto;font-size:14px;color:var(--muted)}
-.ed-help{color:var(--muted);font-size:14px;margin:0 0 16px}
-.ed-item{border:1px solid var(--edge-soft);background:var(--glass);border-radius:var(--radius-md);padding:16px;margin-bottom:14px}
-.ed-item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px}
-.ed-item-head b{font-size:14px}
-.ed-item-head .ctrl{display:flex;gap:6px}
-.ed-item-head .ctrl button{border:1px solid var(--edge-soft);background:var(--glass-strong);border-radius:10px;padding:5px 10px;cursor:pointer;font-size:13px;font-weight:700}
-.ed-item-head .ctrl button.del{color:#E0556B}
-.ed-field{margin-bottom:12px}
-.ed-field > label{display:block;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.drawer header{padding:20px 22px 10px;display:flex;justify-content:space-between;align-items:center}
+.drawer header h2{margin:0;font-size:19px}
+.xbtn{border:1px solid var(--line);background:none;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px}
+.tabs{display:flex;gap:6px;padding:0 22px 12px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.tabs button{flex:none;border:1px solid var(--line);background:none;padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--cobalt);color:var(--on-cobalt);border-color:transparent}
+.dbody{flex:1;overflow-y:auto;padding:16px 22px 24px}
+.dfoot{padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center}
+.dfoot .st{margin-right:auto;font-size:14px;color:var(--muted)}
+.help{color:var(--muted);font-size:14px;margin:0 0 14px}
+.item{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px;background:var(--glass)}
+.item .item{background:none;margin-bottom:8px}
+.ihead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.ihead b{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ctrl{display:flex;gap:4px;flex:none}
+.ctrl button{border:1px solid var(--line);background:none;border-radius:8px;padding:4px 9px;cursor:pointer;font-size:13px;font-weight:600}
+.ctrl button.del{color:#D14356}
+.ef{margin-bottom:10px}
+.ef > label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:5px}
 .bi{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.bi .tag{font-size:11px;font-weight:800;color:var(--neva);margin-bottom:3px;display:block}
-.ed-field input,.ed-field textarea,.ed-field select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--edge-soft);background:var(--glass-strong);font-size:14px}
-.ed-field select option{color:#141A3A}
-.ed-field textarea{min-height:90px;resize:vertical}
-.add{width:100%;border:1.5px dashed var(--edge-soft);background:transparent;padding:12px;border-radius:var(--radius-md);cursor:pointer;font-weight:700}
-.add:hover{border-color:var(--neva);color:var(--neva)}
-.toast{position:fixed;left:50%;bottom:calc(26px + env(safe-area-inset-bottom,0px));z-index:90;transform:translate(-50%,40px);opacity:0;padding:12px 20px;border-radius:999px;font-weight:700;transition:all .4s}
+.bi em{display:block;font-style:normal;font-size:11px;font-weight:700;color:var(--cobalt);margin-bottom:3px}
+.ef input,.ef textarea{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:var(--glass-2);font-size:14px}
+.ef textarea{min-height:84px;resize:vertical}
+.add{width:100%;border:1.5px dashed var(--line);background:none;padding:10px;border-radius:12px;cursor:pointer;font-weight:600;font-size:14px}
+.add:hover{border-color:var(--cobalt);color:var(--cobalt)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:90;transform:translate(-50%,30px);opacity:0;padding:11px 18px;border-radius:12px;font-weight:600;transition:all .35s}
 .toast.show{transform:translate(-50%,0);opacity:1}
 
-@media (max-width:980px){
-  .hero{grid-template-columns:1fr;padding-top:40px}
-  .lens{aspect-ratio:auto;min-height:320px}
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:40px;padding-top:40px}
   .g3{grid-template-columns:1fr 1fr}
   .about,.contact{grid-template-columns:1fr}
 }
 @media (max-width:760px){
-  nav.links{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;padding:12px;border-radius:24px;background:var(--glass-strong);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--edge)}
-  nav.links.open{display:flex}
-  .menu-btn{display:grid;place-items:center;margin-left:auto}
-  .bar .btn-primary{display:none}
+  .links{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;padding:10px;border-radius:16px;background:var(--bg);border:1px solid var(--line);box-shadow:var(--shadow)}
+  .links.open{display:flex}
+  .menu{display:grid;place-items:center}
+  .brand{margin-right:auto}
   .g3,.g2{grid-template-columns:1fr}
-  .course.feature{grid-column:auto}
   form.req{grid-template-columns:1fr}
   .bi{grid-template-columns:1fr}
-  .drawer{border-radius:0}
   body{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .reveal{opacity:1;transform:none}
+  .rv{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
 </style>
 </head>
 <body>
-<script id="site-data" type="application/json">{"site":{"name":"Anastasia ","initials":"UwU","role":{"en":"Russian–English interpreter, translator and tutor","ru":"Переводчик и преподаватель русского и английского"},"availability":{"en":"Taking new clients and students","ru":"Принимаю новых клиентов и учеников"},"heroTitle":{"en":"Say it once. Be understood in two languages.","ru":"Скажите один раз — вас поймут на двух языках."},"heroText":{"en":"Live interpreting, document translation and private lessons in Russian and English, from a university-trained linguist.","ru":"Устный перевод, перевод документов и частные уроки русского и английского от лингвиста с университетским образованием."},"email":"Yourmom@example.com","phone":"+46 70 000 00 00","telegram":"@MakeANewOneForThis?","location":{"en":"Russia and online worldwide","ru":"Россия и онлайн по всему миру"}},"heroWords":[{"ru":"Слово","en":"Word"},{"ru":"Смысл","en":"Meaning"},{"ru":"Голос","en":"Voice"},{"ru":"Договор","en":"Contract"},{"ru":"Урок","en":"Lesson"}],"services":[{"icon":"mic","title":{"en":"Live interpreting","ru":"Устный перевод"},"text":{"en":"Meetings, medical visits, negotiations and events, in person or by video call.","ru":"Встречи, визиты к врачу, переговоры и мероприятия — лично или по видеосвязи."},"price":{"en":"from €45 / hour","ru":"от 45 € / час"}},{"icon":"doc","title":{"en":"Document translation","ru":"Перевод документов"},"text":{"en":"Personal papers, contracts, diplomas and business letters, with precise terminology and the original layout kept intact.","ru":"Личные документы, договоры, дипломы и деловая переписка — с точной терминологией и сохранением оформления."},"price":{"en":"from €25 / page","ru":"от 25 € / страница"}},{"icon":"chat","title":{"en":"Editing and localisation","ru":"Редактура и локализация"},"text":{"en":"Websites, presentations and marketing texts that read as if a native speaker wrote them.","ru":"Сайты, презентации и рекламные тексты, которые звучат естественно для носителя языка."},"price":{"en":"on request","ru":"по запросу"}}],"documents":[{"name":{"en":"Passports and IDs","ru":"Паспорта и удостоверения"}},{"name":{"en":"Birth and marriage certificates","ru":"Свидетельства о рождении и браке"}},{"name":{"en":"Diplomas and transcripts","ru":"Дипломы и приложения к ним"}},{"name":{"en":"Contracts and agreements","ru":"Договоры и соглашения"}},{"name":{"en":"Medical records","ru":"Медицинские документы"}},{"name":{"en":"Bank statements","ru":"Банковские выписки"}},{"name":{"en":"Letters and CVs","ru":"Письма и резюме"}},{"name":{"en":"Court and notary papers","ru":"Судебные и нотариальные документы"}}],"documentsNote":{"en":"Send a photo or scan and you will get a fixed price and turnaround time within one working day.","ru":"Пришлите фото или скан — в течение рабочего дня вы получите точную стоимость и срок выполнения."},"courses":[{"feature":true,"title":{"en":"English for Russian speakers","ru":"Английский для русскоговорящих"},"level":{"en":"Beginner to advanced","ru":"С нуля до продвинутого"},"text":{"en":"Grammar that finally makes sense, explained in Russian whenever you need it, and plenty of real speaking practice from the first lesson.","ru":"Грамматика, которая наконец становится понятной, объяснения на русском, когда это нужно, и много живой разговорной практики с первого урока."},"format":{"en":"One-to-one, online or in person, 60 minutes","ru":"Индивидуально, онлайн или очно, 60 минут"},"price":{"en":"€35 / lesson","ru":"35 € / урок"}},{"feature":false,"title":{"en":"Russian for English speakers","ru":"Русский для англоговорящих"},"level":{"en":"From the alphabet up","ru":"С алфавита"},"text":{"en":"From reading Cyrillic to confident conversation, with a native speaker who knows exactly where English speakers get stuck.","ru":"От чтения кириллицы до уверенного разговора — с носителем языка, который знает, где англоговорящим сложнее всего."},"format":{"en":"One-to-one, online or in person, 60 minutes","ru":"Индивидуально, онлайн или очно, 60 минут"},"price":{"en":"€35 / lesson","ru":"35 € / урок"}},{"feature":false,"title":{"en":"Exam and interview preparation","ru":"Подготовка к экзаменам и собеседованиям"},"level":{"en":"IELTS, TOEFL, TORFL","ru":"IELTS, TOEFL, ТРКИ"},"text":{"en":"Targeted practice for exams and job interviews, with clear written feedback after every session.","ru":"Целенаправленная подготовка к экзаменам и собеседованиям с подробной обратной связью после каждого занятия."},"format":{"en":"Packages of 5 or 10 sessions","ru":"Пакеты из 5 или 10 занятий"},"price":{"en":"from €160","ru":"от 160 €"}},{"feature":false,"title":{"en":"Conversation club","ru":"Разговорный клуб"},"level":{"en":"Intermediate and up","ru":"От среднего уровня"},"text":{"en":"Small online groups where you speak about real topics, make mistakes safely and get gently corrected.","ru":"Небольшие онлайн-группы: обсуждаем живые темы, ошибаемся без страха и получаем мягкие исправления."},"format":{"en":"Groups of up to 5, weekly","ru":"Группы до 5 человек, раз в неделю"},"price":{"en":"€15 / session","ru":"15 € / занятие"}}],"about":{"text":{"en":"I studied linguistics and translation at university and have worked between Russian and English ever since: interpreting for families and relatives, translating documents that people's plans depend on, and teaching both languages to adults. I care about the meaning behind the words, not just the words themselves.","ru":"Я изучал лингвистику и перевод в университете и с тех пор работаю с парой языков русский–английский: занимаюсь устным переводом для семей и родственников, перевожу документы, от которых зависят чьи-то планы, и преподаю оба языка взрослым. Для меня важен смысл, стоящий за словами, а не просто сами слова."}},"credentials":[{"text":{"en":"University degree in linguistics and translation","ru":"Высшее образование: лингвистика и перевод"}},{"text":{"en":"Native Russian, fluent professional English","ru":"Русский — родной, английский — свободный профессиональный"}},{"text":{"en":"Teaching experience with adults and teenagers","ru":"Опыт преподавания взрослым и подросткам"}}],"testimonials":[{"quote":{"en":"Replace this with a real review from a client. Short, specific quotes work best.","ru":"Замените этот текст настоящим отзывом клиента. Лучше всего работают короткие и конкретные отзывы."},"author":"Client name","role":{"en":"Document translation","ru":"Перевод документов"}},{"quote":{"en":"Replace this with a real review from a student about their lessons.","ru":"Замените этот текст настоящим отзывом ученика о занятиях."},"author":"Student name","role":{"en":"English lessons","ru":"Уроки английского"}}]}</script>
+<script id="site-data" type="application/json">{"site":{"name":"Anastasia Shabanova","initials":"AS","title":{"en":"Russian–English translator and interpreter","ru":"Переводчик русского и английского языков"},"availability":{"en":"Available for new projects","ru":"Открыта для новых проектов"},"languages":[{"en":"Russian, native","ru":"Русский, родной"},{"en":"English, fluent","ru":"Английский, свободный"}],"intro":{"en":"Documents, meetings and everyday situations, translated accurately and delivered on time. University-trained in linguistics and translation.","ru":"Документы, встречи и повседневные ситуации — точный перевод в срок. Высшее образование в области лингвистики и перевода."},"email":"your-email@example.com","phone":"+7 000 000 00 00","telegram":"@username","location":{"en":"Russia and online worldwide","ru":"Россия и онлайн по всему миру"}},"samples":[{"ru":"Настоящим подтверждается, что документ выдан на имя заявителя.","en":"This is to certify that the document was issued in the applicant's name."},{"ru":"Мы готовы подписать договор после согласования сроков поставки.","en":"We are ready to sign the contract once the delivery dates are agreed."},{"ru":"Принимать по одной таблетке два раза в день после еды.","en":"Take one tablet twice a day after meals."}],"about":{"text":{"en":"I studied linguistics and translation at university and have worked between Russian and English ever since: interpreting for families and relatives, and translating the documents that people's plans depend on. I care about the meaning behind the words, not just the words themselves.","ru":"Я изучала лингвистику и перевод в университете и с тех пор работаю с парой языков русский–английский: занимаюсь устным переводом для семей и родственников и перевожу документы, от которых зависят чьи-то планы. Для меня важен смысл, стоящий за словами, а не просто сами слова."}},"credentials":[{"text":{"en":"University degree in linguistics and translation","ru":"Высшее образование: лингвистика и перевод"}},{"text":{"en":"Native Russian, fluent professional English","ru":"Русский — родной, английский — свободный профессиональный"}},{"text":{"en":"Confidential handling of every document","ru":"Полная конфиденциальность документов"}}],"services":[{"title":{"en":"Document translation","ru":"Перевод документов"},"text":{"en":"Personal papers, contracts, diplomas and business letters, with precise terminology and the original layout kept intact.","ru":"Личные документы, договоры, дипломы и деловая переписка — с точной терминологией и сохранением оформления."},"prices":[{"label":{"en":"Standard page (1,800 characters)","ru":"Стандартная страница (1800 знаков)"},"price":{"en":"from €25","ru":"от 25 €"}},{"label":{"en":"Personal documents (passport, certificate)","ru":"Личные документы (паспорт, свидетельство)"},"price":{"en":"from €20 per document","ru":"от 20 € за документ"}},{"label":{"en":"Urgent, within 24 hours","ru":"Срочно, в течение 24 часов"},"price":{"en":"+50%","ru":"+50%"}}]},{"title":{"en":"Interpreting","ru":"Устный перевод"},"text":{"en":"Meetings, medical visits, negotiations and family matters, in person or by video call.","ru":"Встречи, визиты к врачу, переговоры и семейные вопросы — лично или по видеосвязи."},"prices":[{"label":{"en":"Online, by video call","ru":"Онлайн, по видеосвязи"},"price":{"en":"€40 / hour","ru":"40 € / час"}},{"label":{"en":"In person","ru":"Очно"},"price":{"en":"€50 / hour","ru":"50 € / час"}},{"label":{"en":"Minimum booking","ru":"Минимальный заказ"},"price":{"en":"1 hour","ru":"1 час"}}]},{"title":{"en":"Editing and proofreading","ru":"Редактура и вычитка"},"text":{"en":"Websites, presentations and texts that need to read naturally to a native speaker.","ru":"Сайты, презентации и тексты, которые должны звучать естественно для носителя языка."},"prices":[{"label":{"en":"Proofreading","ru":"Вычитка"},"price":{"en":"€12 / page","ru":"12 € / страница"}},{"label":{"en":"Website or app localisation","ru":"Локализация сайта или приложения"},"price":{"en":"on request","ru":"по запросу"}}]}],"servicesNote":{"en":"Send a photo or scan of your document and you'll get an exact price and deadline within one working day.","ru":"Пришлите фото или скан документа — в течение рабочего дня вы получите точную стоимость и срок."},"portfolio":[{"type":{"en":"Document translation","ru":"Перевод документов"},"pair":"RU → EN","year":"2025","title":{"en":"Project title","ru":"Название проекта"},"text":{"en":"One or two sentences about the project: the kind of client, what was translated and the result.","ru":"Пара предложений о проекте: какой клиент, что переводилось и каков результат."}},{"type":{"en":"Interpreting","ru":"Устный перевод"},"pair":"EN → RU","year":"2025","title":{"en":"Project title","ru":"Название проекта"},"text":{"en":"One or two sentences about the project: the kind of client, what was translated and the result.","ru":"Пара предложений о проекте: какой клиент, что переводилось и каков результат."}},{"type":{"en":"Editing","ru":"Редактура"},"pair":"RU → EN","year":"2024","title":{"en":"Project title","ru":"Название проекта"},"text":{"en":"One or two sentences about the project: the kind of client, what was translated and the result.","ru":"Пара предложений о проекте: какой клиент, что переводилось и каков результат."}}],"testimonials":[{"quote":{"en":"Replace this with a real review from a client. Short, specific quotes work best.","ru":"Замените этот текст настоящим отзывом клиента. Лучше всего работают короткие и конкретные отзывы."},"author":"Client name","role":{"en":"Document translation","ru":"Перевод документов"}},{"quote":{"en":"Replace this with a second real review.","ru":"Замените этот текст вторым настоящим отзывом."},"author":"Client name","role":{"en":"Interpreting","ru":"Устный перевод"}}]}</script>
 <script id="app">
 (function(){
 "use strict";
 var ORIGINAL = JSON.parse(document.getElementById("site-data").textContent);
 var DATA = JSON.parse(JSON.stringify(ORIGINAL));
 var LANG = "en";
-try{ var saved = localStorage.getItem("site-lang"); if(saved==="ru"||saved==="en") LANG = saved; else if((navigator.language||"").toLowerCase().indexOf("ru")===0) LANG="ru"; }catch(e){}
+try{ var sl=localStorage.getItem("site-lang"); if(sl==="en"||sl==="ru") LANG=sl; else if((navigator.language||"").toLowerCase().indexOf("ru")===0) LANG="ru"; }catch(e){}
 
 var UI = {
-  en:{services:"Services",documents:"Documents",courses:"Courses",about:"About",contact:"Contact",quote:"Request a quote",lesson:"Book a lesson",
-    servicesTitle:"Translation for the moments that matter",servicesText:"Spoken or written, formal or everyday. Every job is handled personally, start to finish.",
-    docsTitle:"Documents I translate",coursesTitle:"Private courses in both directions",coursesText:"For Russian speakers learning English and English speakers learning Russian. Lessons follow your goals, not a textbook.",
-    popular:"Most requested",aboutTitle:"About me",reviewsTitle:"What clients say",
-    contactTitle:"Tell me what you need",contactText:"Describe the job or the lessons you're looking for. You'll get a reply with a price and next steps.",
-    fName:"Your name",fEmail:"Your email",fService:"What do you need?",fMsg:"Details",fMsgPh:"Dates, number of pages, your language level, anything that helps",
-    send:"Send request by email",sendNote:"Opens your email app with everything filled in.",errFill:"Add your name, email and a few details first.",
-    rights:"All rights reserved.",madeFor:"Russian ⇄ English",other:"Something else",ruen:"Russian",enen:"English",
-    edit:"Edit site",editorTitle:"Site editor",publish:"Publish changes",discard:"Discard",unsaved:"Unsaved changes",nochanges:"No changes yet",
-    publishing:"Publishing…",published:"Published",readonly:"You can view this page but not edit it.",addItem:"Add item",remove:"Remove",
-    tGeneral:"General",tHero:"Hero words",tServices:"Services",tDocs:"Documents",tCourses:"Courses",tAbout:"About",tReviews:"Reviews",
-    helpHero:"Word pairs that morph in the glass card at the top of the page.",helpGeneral:"Name, headline and contact details shown across the site.",
-    helpList:"Edit, reorder or remove items. Changes preview live on the page behind.",failed:"Publishing failed. Try again in a moment.",
-    loginNote:"Admins are people you share this page with edit access. Google sign-in comes when the site moves to its own domain."},
-  ru:{services:"Услуги",documents:"Документы",courses:"Курсы",about:"Обо мне",contact:"Контакты",quote:"Узнать стоимость",lesson:"Записаться на урок",
-    servicesTitle:"Перевод для важных моментов",servicesText:"Устный или письменный, официальный или повседневный. Каждый заказ я веду лично от начала до конца.",
-    docsTitle:"Какие документы я перевожу",coursesTitle:"Частные занятия в обе стороны",coursesText:"Для русскоговорящих, изучающих английский, и англоговорящих, изучающих русский. Уроки строятся вокруг ваших целей, а не учебника.",
-    popular:"Чаще всего выбирают",aboutTitle:"Обо мне",reviewsTitle:"Отзывы клиентов",
-    contactTitle:"Расскажите, что вам нужно",contactText:"Опишите задачу или какие занятия вы ищете. В ответ вы получите стоимость и дальнейшие шаги.",
-    fName:"Ваше имя",fEmail:"Ваш email",fService:"Что вам нужно?",fMsg:"Подробности",fMsgPh:"Даты, количество страниц, ваш уровень языка — всё, что поможет",
-    send:"Отправить запрос по почте",sendNote:"Откроется почтовая программа с заполненным письмом.",errFill:"Сначала укажите имя, email и пару слов о задаче.",
-    rights:"Все права защищены.",madeFor:"Русский ⇄ английский",other:"Другое",ruen:"Русский",enen:"Английский",
-    edit:"Редактировать",editorTitle:"Редактор сайта",publish:"Опубликовать",discard:"Отменить",unsaved:"Есть несохранённые изменения",nochanges:"Изменений пока нет",
-    publishing:"Публикация…",published:"Опубликовано",readonly:"Вы можете просматривать страницу, но не редактировать её.",addItem:"Добавить",remove:"Удалить",
-    tGeneral:"Общее",tHero:"Слова в шапке",tServices:"Услуги",tDocs:"Документы",tCourses:"Курсы",tAbout:"Обо мне",tReviews:"Отзывы",
-    helpHero:"Пары слов, которые превращаются друг в друга в стеклянной карточке вверху страницы.",helpGeneral:"Имя, заголовок и контакты, которые видны на всём сайте.",
-    helpList:"Редактируйте, меняйте порядок или удаляйте элементы. Изменения сразу видны на странице.",failed:"Не удалось опубликовать. Попробуйте ещё раз чуть позже.",
-    loginNote:"Администраторы — это люди, которым вы дали доступ к редактированию этой страницы. Вход через Google появится, когда сайт переедет на свой домен."}
+  en:{home:"Home",about:"About",services:"Services",portfolio:"Portfolio",reviews:"Reviews",contact:"Contact",quote:"Get a quote",seeServices:"See services and prices",
+    original:"Original",translation:"Translation",sampleNote:"Sample translations",aboutTitle:"About me",servicesTitle:"Services and prices",servicesSub:"Clear prices, agreed before any work starts. Final cost depends on volume, subject and deadline.",
+    portfolioTitle:"Portfolio",portfolioSub:"A selection of recent work. Client details are kept confidential.",reviewsTitle:"What clients say",
+    contactTitle:"Get in touch",contactText:"Tell me what you need translated and by when. You'll get a reply with a price and next steps.",
+    fName:"Name",fEmail:"Email",fService:"Service",fMsg:"Details",fMsgPh:"Type of document, number of pages, dates, deadline",other:"Something else",
+    send:"Send by email",sendNote:"Opens your email app with the details filled in.",errFill:"Add your name, email and a few details first.",rights:"All rights reserved.",
+    edit:"Edit site",editor:"Site editor",publish:"Publish changes",discard:"Discard",unsaved:"Unsaved changes",nochanges:"No changes",publishing:"Publishing…",published:"Published",
+    failed:"Publishing failed. Try again in a moment.",readonly:"This view is read-only.",add:"Add",remove:"Remove",
+    tGeneral:"General",tSamples:"Samples",tAbout:"About",tServices:"Services",tPortfolio:"Portfolio",tReviews:"Reviews",
+    hGeneral:"Name, titles, languages and contact details.",hSamples:"Sentence pairs shown in the card next to the name.",hList:"Edit, reorder or remove items. The page updates as you type.",
+    priceRows:"Price rows",languagesF:"Languages"},
+  ru:{home:"Главная",about:"Обо мне",services:"Услуги",portfolio:"Портфолио",reviews:"Отзывы",contact:"Контакты",quote:"Узнать стоимость",seeServices:"Услуги и цены",
+    original:"Оригинал",translation:"Перевод",sampleNote:"Примеры перевода",aboutTitle:"Обо мне",servicesTitle:"Услуги и цены",servicesSub:"Понятные цены, которые согласовываются до начала работы. Итоговая стоимость зависит от объёма, тематики и срока.",
+    portfolioTitle:"Портфолио",portfolioSub:"Некоторые недавние работы. Данные клиентов остаются конфиденциальными.",reviewsTitle:"Отзывы клиентов",
+    contactTitle:"Связаться со мной",contactText:"Расскажите, что нужно перевести и к какому сроку. В ответ вы получите стоимость и дальнейшие шаги.",
+    fName:"Имя",fEmail:"Email",fService:"Услуга",fMsg:"Подробности",fMsgPh:"Тип документа, количество страниц, даты, срок",other:"Другое",
+    send:"Отправить по почте",sendNote:"Откроется почтовая программа с заполненным письмом.",errFill:"Сначала укажите имя, email и пару слов о задаче.",rights:"Все права защищены.",
+    edit:"Редактировать",editor:"Редактор сайта",publish:"Опубликовать",discard:"Отменить",unsaved:"Есть несохранённые изменения",nochanges:"Изменений нет",publishing:"Публикация…",published:"Опубликовано",
+    failed:"Не удалось опубликовать. Попробуйте чуть позже.",readonly:"Эта страница доступна только для просмотра.",add:"Добавить",remove:"Удалить",
+    tGeneral:"Общее",tSamples:"Примеры",tAbout:"Обо мне",tServices:"Услуги",tPortfolio:"Портфолио",tReviews:"Отзывы",
+    hGeneral:"Имя, должность, языки и контакты.",hSamples:"Пары предложений в карточке рядом с именем.",hList:"Редактируйте, меняйте порядок или удаляйте элементы. Страница обновляется сразу.",
+    priceRows:"Строки с ценами",languagesF:"Языки"}
 };
-function t(k){ return (UI[LANG]&&UI[LANG][k]) || UI.en[k] || k; }
-function L(v){ if(v==null) return ""; if(typeof v==="string") return v; return v[LANG] || v.en || v.ru || ""; }
+function t(k){ return UI[LANG][k]||UI.en[k]||k; }
+function L(v){ if(v==null) return ""; if(typeof v==="string") return v; return v[LANG]||v.en||v.ru||""; }
 function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+var CHECK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
 
-var ICONS = {
-  mic:'<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
-  doc:'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>',
-  chat:'<path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
-  book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5M9 7h6"/>',
-  cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
-  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
-  stamp:'<path d="M9 3h6l-1 7h-4z"/><path d="M5 14h14v3H5zM4 21h16"/>',
-  video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/>'
-};
-function icon(n){ return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[n]||ICONS.globe)+'</svg>'; }
-var CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>';
-
-/* ---------- render public site ---------- */
-var root = document.createElement("div");
-root.id = "root";
+var root=document.createElement("div");
 document.body.appendChild(root);
-root.innerHTML = '<div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div><div class="grain" aria-hidden="true"></div>'+
+root.innerHTML='<div class="bgfx" aria-hidden="true"><i></i><i></i><i></i></div>'+
   '<header class="top"><div class="wrap"><div class="bar glass" id="bar"></div></div></header><main id="main"></main><footer id="foot"></footer>'+
-  '<button class="btn btn-primary admin-fab" id="fab" type="button"></button><div class="drawer-bg" id="dbg"></div>'+
-  '<aside class="drawer glass" id="drawer" aria-label="Site editor" aria-hidden="true"></aside><div class="toast glass" id="toast" role="status"></div>';
+  '<button class="btn btn-main fab" id="fab" type="button"></button><div class="dbg" id="dbg"></div>'+
+  '<aside class="drawer" id="drawer" aria-label="Site editor" aria-hidden="true"></aside><div class="toast glass" id="toast" role="status"></div>';
 
 function renderBar(){
-  var s = DATA.site;
-  document.getElementById("bar").innerHTML =
-    '<a class="brand" href="#top"><span class="mark"><b>'+esc(s.initials||"")+'</b></span><span>'+esc(s.name)+'</span></a>'+
-    '<nav class="links" id="navlinks"><a href="#services">'+t("services")+'</a><a href="#documents">'+t("documents")+'</a><a href="#courses">'+t("courses")+'</a><a href="#about">'+t("about")+'</a><a href="#contact">'+t("contact")+'</a></nav>'+
-    '<div class="langswitch" data-lang="'+LANG+'" role="group" aria-label="Language"><span class="pill"></span><button type="button" data-lang="en" aria-pressed="'+(LANG==="en")+'">EN</button><button type="button" data-lang="ru" aria-pressed="'+(LANG==="ru")+'">RU</button></div>'+
-    '<a class="btn btn-primary btn-sm" href="#contact">'+t("quote")+'</a>'+
-    '<button class="menu-btn" id="menubtn" type="button" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>';
+  var s=DATA.site;
+  document.getElementById("bar").innerHTML='<a class="brand" href="#home">'+esc(s.name)+'</a>'+
+    '<nav class="links" id="links"><a href="#about">'+t("about")+'</a><a href="#services">'+t("services")+'</a><a href="#portfolio">'+t("portfolio")+'</a><a href="#reviews">'+t("reviews")+'</a><a href="#contact">'+t("contact")+'</a></nav>'+
+    '<div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="'+(LANG==="en")+'">EN</button><button type="button" data-lang="ru" aria-pressed="'+(LANG==="ru")+'">RU</button></div>'+
+    '<button class="menu" id="menu" type="button" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>';
 }
 
 function renderMain(){
-  var d = DATA, s = d.site;
-  var h = '';
-  h += '<div class="wrap" id="top"><section class="hero">'+
-    '<div><div class="availability glass"><i></i>'+esc(L(s.availability))+'</div>'+
-    '<h1>'+esc(L(s.heroTitle))+'</h1><p class="lead">'+esc(L(s.heroText))+'</p>'+
-    '<div class="ctas"><a class="btn btn-primary" href="#contact">'+t("quote")+'</a><a class="btn btn-ghost" href="#courses">'+t("lesson")+'</a></div></div>'+
-    '<div class="lens glass shine" aria-live="off"><div class="orb" aria-hidden="true"></div>'+
-      '<div class="pair"><span class="chip" id="chipRU">RU</span><span class="chip" id="chipEN">EN</span></div>'+
-      '<div><div class="morph" id="morph">&nbsp;</div><div class="morph-sub" id="morphSub">&nbsp;</div></div>'+
-      '<div class="foot"><span>'+esc(L(s.location))+'</span><div class="dots" id="dots"></div></div>'+
-    '</div></section></div>';
+  var d=DATA, s=d.site, h='';
+  h+='<div class="wrap" id="home"><section class="hero"><div>'+
+    '<div class="status"><i></i>'+esc(L(s.availability))+'</div>'+
+    '<h1>'+esc(s.name)+'</h1><p class="role">'+esc(L(s.title))+'</p>'+
+    '<div class="langs">'+(s.languages||[]).map(function(l){return '<span class="tag">'+esc(L(l))+'</span>';}).join("")+'</div>'+
+    '<p class="intro">'+esc(L(s.intro))+'</p>'+
+    '<div class="ctas"><a class="btn btn-main" href="#contact">'+t("quote")+'</a><a class="btn btn-line" href="#services">'+t("seeServices")+'</a></div></div>';
+  if(d.samples.length){
+    h+='<div class="sample glass" aria-label="'+esc(t("sampleNote"))+'"><div class="pane"><small>'+t("original")+', RU</small><p id="sRU"></p></div><div class="pane"><small>'+t("translation")+', EN</small><p id="sEN"></p></div>'+
+      '<div class="nav"><span>'+t("sampleNote")+'</span><div class="bars" id="bars">'+d.samples.map(function(){return "<b></b>";}).join("")+'</div></div></div>';
+  }
+  h+='</section></div>';
 
-  h += '<section class="block" id="services"><div class="wrap"><div class="sec-head reveal"><h2>'+t("servicesTitle")+'</h2><p>'+t("servicesText")+'</p></div><div class="grid g3">';
+  h+='<section class="sec" id="about"><div class="wrap"><h2 class="rv">'+t("aboutTitle")+'</h2><div class="about" style="margin-top:28px"><div class="text glass rv"><p>'+esc(L(d.about.text))+'</p></div><ul class="glass rv">'+
+    d.credentials.map(function(c){return '<li>'+CHECK+'<span>'+esc(L(c.text))+'</span></li>';}).join("")+'</ul></div></div></section>';
+
+  h+='<section class="sec" id="services"><div class="wrap"><h2 class="rv">'+t("servicesTitle")+'</h2><p class="sub rv">'+t("servicesSub")+'</p><div class="grid g3">';
   d.services.forEach(function(x){
-    h += '<article class="card glass shine reveal"><div class="icon">'+icon(x.icon)+'</div><h3>'+esc(L(x.title))+'</h3><p>'+esc(L(x.text))+'</p>'+(L(x.price)?'<span class="price">'+esc(L(x.price))+'</span>':'')+'</article>';
+    h+='<article class="svc glass rv"><h3>'+esc(L(x.title))+'</h3><p>'+esc(L(x.text))+'</p><ul class="rates">'+
+      (x.prices||[]).map(function(r){return '<li><span>'+esc(L(r.label))+'</span><span>'+esc(L(r.price))+'</span></li>';}).join("")+'</ul></article>';
   });
-  h += '</div></div></section>';
+  h+='</div><p class="note rv">'+esc(L(d.servicesNote))+'</p></div></section>';
 
-  h += '<section class="block" id="documents"><div class="wrap"><div class="docs glass reveal"><div class="sec-head" style="position:relative;margin-bottom:24px"><h2>'+t("docsTitle")+'</h2></div><div class="doc-cloud">';
-  d.documents.forEach(function(x){ h += '<span>'+icon("doc")+esc(L(x.name))+'</span>'; });
-  h += '</div><p class="docs-note">'+esc(L(d.documentsNote))+'</p></div></div></section>';
-
-  h += '<section class="block" id="courses"><div class="wrap"><div class="sec-head reveal"><h2>'+t("coursesTitle")+'</h2><p>'+t("coursesText")+'</p></div><div class="grid g3">';
-  d.courses.forEach(function(x){
-    h += '<article class="card course glass shine reveal'+(x.feature?' feature':'')+'"><div class="meta">'+(x.feature?'<span class="chip on">'+t("popular")+'</span>':'')+'<span class="chip">'+esc(L(x.level))+'</span></div>'+
-      '<h3>'+esc(L(x.title))+'</h3><p>'+esc(L(x.text))+'</p><div class="fmt">'+esc(L(x.format))+'</div>'+
-      '<div class="row"><span class="price">'+esc(L(x.price))+'</span><a class="btn btn-ghost btn-sm" href="#contact" data-pick="'+esc(L(x.title))+'">'+t("lesson")+'</a></div></article>';
+  h+='<section class="sec" id="portfolio"><div class="wrap"><h2 class="rv">'+t("portfolioTitle")+'</h2><p class="sub rv">'+t("portfolioSub")+'</p><div class="grid g3">';
+  d.portfolio.forEach(function(x){
+    h+='<article class="work glass rv"><div class="meta"><span class="tag">'+esc(L(x.type))+'</span>'+(x.pair?'<span class="tag">'+esc(x.pair)+'</span>':'')+(x.year?'<span class="tag">'+esc(x.year)+'</span>':'')+'</div><h3>'+esc(L(x.title))+'</h3><p>'+esc(L(x.text))+'</p></article>';
   });
-  h += '</div></div></section>';
-
-  h += '<section class="block" id="about"><div class="wrap"><div class="about"><div class="portrait glass reveal"><div class="mono" aria-hidden="true">'+esc(s.initials||"")+'</div><div class="who"><strong>'+esc(s.name)+'</strong><span>'+esc(L(s.role))+'</span></div></div>'+
-    '<div class="about-text glass reveal"><div class="sec-head" style="position:relative;margin-bottom:20px"><h2>'+t("aboutTitle")+'</h2></div><p>'+esc(L(d.about.text))+'</p><ul class="creds">';
-  d.credentials.forEach(function(c){ h += '<li>'+CHECK+'<span>'+esc(L(c.text))+'</span></li>'; });
-  h += '</ul></div></div></div></section>';
+  h+='</div></div></section>';
 
   if(d.testimonials.length){
-    h += '<section class="block" id="reviews"><div class="wrap"><div class="sec-head reveal"><h2>'+t("reviewsTitle")+'</h2></div><div class="grid g2">';
-    d.testimonials.forEach(function(q){ h += '<figure class="quote glass shine reveal" style="margin:0"><blockquote>'+esc(L(q.quote))+'</blockquote><figcaption><b>'+esc(q.author)+'</b>, '+esc(L(q.role))+'</figcaption></figure>'; });
-    h += '</div></div></section>';
+    h+='<section class="sec" id="reviews"><div class="wrap"><h2 class="rv" style="margin-bottom:28px">'+t("reviewsTitle")+'</h2><div class="grid g2">'+
+      d.testimonials.map(function(q){return '<figure class="quote glass rv"><blockquote>'+esc(L(q.quote))+'</blockquote><figcaption><b>'+esc(q.author)+'</b>, '+esc(L(q.role))+'</figcaption></figure>';}).join("")+'</div></div></section>';
   }
 
-  var opts = d.services.map(function(x){return L(x.title);}).concat(d.courses.map(function(x){return L(x.title);})).concat([t("other")]);
-  h += '<section class="block" id="contact"><div class="wrap"><div class="contact"><div class="contact-info glass reveal"><h2>'+t("contactTitle")+'</h2><p>'+t("contactText")+'</p><div class="clist">'+
+  var opts=d.services.map(function(x){return L(x.title);}).concat([t("other")]);
+  h+='<section class="sec" id="contact"><div class="wrap"><div class="contact"><div class="info glass rv"><h2>'+t("contactTitle")+'</h2><p>'+t("contactText")+'</p><div class="clist">'+
     (s.email?'<a href="mailto:'+esc(s.email)+'"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'+esc(s.email)+'</a>':'')+
     (s.phone?'<a href="tel:'+esc(s.phone.replace(/\s/g,""))+'"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'+esc(s.phone)+'</a>':'')+
-    (s.telegram?'<div><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/></svg>Telegram '+esc(s.telegram)+'</div>':'')+
-    '<div><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>'+esc(L(s.location))+'</div>'+
-    '</div></div>'+
-    '<form class="req glass reveal" id="reqform" novalidate>'+
-      '<div class="field"><label for="fName">'+t("fName")+'</label><input id="fName" autocomplete="name"></div>'+
-      '<div class="field"><label for="fEmail">'+t("fEmail")+'</label><input id="fEmail" type="email" autocomplete="email"></div>'+
-      '<div class="field full"><label for="fService">'+t("fService")+'</label><select id="fService">'+opts.map(function(o){return '<option>'+esc(o)+'</option>';}).join("")+'</select></div>'+
-      '<div class="field full"><label for="fMsg">'+t("fMsg")+'</label><textarea id="fMsg" placeholder="'+esc(t("fMsgPh"))+'"></textarea></div>'+
-      '<div class="form-foot full"><small>'+t("sendNote")+'</small><button class="btn btn-primary" type="submit">'+t("send")+'</button></div>'+
-      '<div class="form-msg full" id="formmsg" aria-live="polite"></div>'+
-    '</form></div></div></section>';
+    (s.telegram?'<a href="https://t.me/'+esc(s.telegram.replace(/^@/,""))+'" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/></svg>'+esc(s.telegram)+'</a>':'')+
+    '<div><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>'+esc(L(s.location))+'</div></div></div>'+
+    '<form class="req glass rv" id="req" novalidate>'+
+    '<div class="field"><label for="fN">'+t("fName")+'</label><input id="fN" autocomplete="name"></div>'+
+    '<div class="field"><label for="fE">'+t("fEmail")+'</label><input id="fE" type="email" autocomplete="email"></div>'+
+    '<div class="field full"><label for="fS">'+t("fService")+'</label><select id="fS">'+opts.map(function(o){return '<option>'+esc(o)+'</option>';}).join("")+'</select></div>'+
+    '<div class="field full"><label for="fM">'+t("fMsg")+'</label><textarea id="fM" placeholder="'+esc(t("fMsgPh"))+'"></textarea></div>'+
+    '<div class="ffoot full"><small>'+t("sendNote")+'</small><button class="btn btn-main" type="submit">'+t("send")+'</button></div>'+
+    '<div class="fmsg full" id="fmsg" aria-live="polite"></div></form></div></div></section>';
 
-  document.getElementById("main").innerHTML = h;
-  document.getElementById("foot").innerHTML = '<div class="wrap"><span>© '+new Date().getFullYear()+' '+esc(s.name)+'. '+t("rights")+'</span><span>'+t("madeFor")+'</span></div>';
-  wireMain();
-  startMorph();
+  document.getElementById("main").innerHTML=h;
+  document.getElementById("foot").innerHTML='<div class="wrap"><span>© '+new Date().getFullYear()+' '+esc(s.name)+'. '+t("rights")+'</span><span>'+esc(L(s.title))+'</span></div>';
+  wire(); startSamples();
 }
+function renderAll(){ document.documentElement.lang=LANG; renderBar(); renderMain(); renderFab(); }
 
-function renderAll(){ document.documentElement.lang = LANG; renderBar(); renderMain(); renderFab(); }
-
-/* ---------- interactions ---------- */
-var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }); },{threshold:.12}) : null;
-function wireMain(){
-  var items = document.querySelectorAll(".reveal");
-  items.forEach(function(el,i){ el.style.transitionDelay = (i%3)*90+"ms"; if(io) io.observe(el); else el.classList.add("in"); });
-  document.querySelectorAll("[data-pick]").forEach(function(a){ a.addEventListener("click",function(){ var sel=document.getElementById("fService"); var v=a.getAttribute("data-pick"); for(var i=0;i<sel.options.length;i++){ if(sel.options[i].text===v){ sel.selectedIndex=i; } } }); });
-  document.getElementById("reqform").addEventListener("submit",function(e){
+var io=("IntersectionObserver" in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.1}):null;
+function wire(){
+  document.querySelectorAll(".rv").forEach(function(el){ if(io) io.observe(el); else el.classList.add("in"); });
+  document.querySelectorAll(".grid").forEach(function(g){ [].forEach.call(g.children,function(c,i){ c.style.transitionDelay=(i%3)*80+"ms"; }); });
+  document.getElementById("req").addEventListener("submit",function(e){
     e.preventDefault();
-    var n=document.getElementById("fName").value.trim(), m=document.getElementById("fEmail").value.trim(), sv=document.getElementById("fService").value, msg=document.getElementById("fMsg").value.trim();
-    var out=document.getElementById("formmsg");
+    var n=document.getElementById("fN").value.trim(), m=document.getElementById("fE").value.trim(), sv=document.getElementById("fS").value, msg=document.getElementById("fM").value.trim(), out=document.getElementById("fmsg");
     if(!n||!m||!msg){ out.textContent=t("errFill"); return; }
     out.textContent="";
-    var body = n+"\n"+m+"\n\n"+sv+"\n\n"+msg;
-    window.location.href = "mailto:"+encodeURIComponent(DATA.site.email)+"?subject="+encodeURIComponent(sv+", "+n)+"&body="+encodeURIComponent(body);
+    location.href="mailto:"+encodeURIComponent(DATA.site.email)+"?subject="+encodeURIComponent(sv+", "+n)+"&body="+encodeURIComponent(n+"\n"+m+"\n\n"+sv+"\n\n"+msg);
   });
 }
-document.addEventListener("pointermove",function(e){
-  var el = e.target.closest && e.target.closest(".shine"); if(!el) return;
-  var r = el.getBoundingClientRect(); el.style.setProperty("--mx",(e.clientX-r.left)+"px"); el.style.setProperty("--my",(e.clientY-r.top)+"px");
-});
 document.addEventListener("click",function(e){
-  var lb = e.target.closest && e.target.closest(".langswitch button");
-  if(lb){ setLang(lb.getAttribute("data-lang")); return; }
-  var mb = e.target.closest && e.target.closest("#menubtn");
-  if(mb){ var nl=document.getElementById("navlinks"); var o=nl.classList.toggle("open"); mb.setAttribute("aria-expanded",o); return; }
-  if(e.target.closest && e.target.closest("#navlinks a")){ document.getElementById("navlinks").classList.remove("open"); }
+  var lb=e.target.closest&&e.target.closest(".lang button"); if(lb){ setLang(lb.getAttribute("data-lang")); return; }
+  var mb=e.target.closest&&e.target.closest("#menu"); if(mb){ var o=document.getElementById("links").classList.toggle("open"); mb.setAttribute("aria-expanded",o); return; }
+  if(e.target.closest&&e.target.closest("#links a")) document.getElementById("links").classList.remove("open");
 });
 function setLang(l){
   if(l===LANG) return; LANG=l; try{localStorage.setItem("site-lang",l);}catch(e){}
-  var sw=document.querySelector(".langswitch"); if(sw){ sw.setAttribute("data-lang",l); }
-  setTimeout(function(){ var y=window.scrollY; renderAll(); if(drawerOpen) renderDrawer(); document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); var m=document.getElementById("main"); m.classList.remove("swap"); void m.offsetWidth; m.classList.add("swap"); window.scrollTo(0,y); },260);
+  var y=scrollY; renderAll(); if(drawerOpen) renderDrawer();
+  document.querySelectorAll(".rv").forEach(function(el){el.classList.add("in");}); scrollTo(0,y);
 }
 
-/* ---------- morphing word lens ---------- */
-var morphTimer=null, morphIdx=0, morphSide=0;
-var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-var POOL = "абвгдежзийклмнопрстуфхцчшщыэюяabcdefghijklmnopqrstuvwxyz";
-function scramble(el,to,done){
-  if(RM){ el.textContent=to; done&&done(); return; }
-  var from = el.textContent, len=Math.max(from.length,to.length), frame=0, total=26;
-  (function step(){
-    var out="";
-    for(var i=0;i<len;i++){
-      var p = frame/total, reveal = i/len;
-      if(p>reveal+.25) out += to[i]||"";
-      else if(p>reveal-.1) out += POOL[Math.floor(Math.random()*POOL.length)];
-      else out += from[i]||"";
-    }
-    el.textContent = out;
-    if(frame++<total) requestAnimationFrame(step); else { el.textContent=to; done&&done(); }
-  })();
-}
-function startMorph(){
-  clearInterval(morphTimer);
-  var words = DATA.heroWords; if(!words.length) return;
-  morphIdx = morphIdx % words.length;
-  var el=document.getElementById("morph"), sub=document.getElementById("morphSub"), dots=document.getElementById("dots");
-  dots.innerHTML = words.map(function(){return "<i></i>";}).join("");
-  function show(){
-    var w = words[morphIdx], word = morphSide===0 ? w.ru : w.en, other = morphSide===0 ? w.en : w.ru;
-    document.getElementById("chipRU").classList.toggle("on",morphSide===0);
-    document.getElementById("chipEN").classList.toggle("on",morphSide===1);
-    [].forEach.call(dots.children,function(d,i){ d.classList.toggle("on",i===morphIdx); });
-    scramble(el,word);
-    sub.textContent = (morphSide===0?"→ ":"← ")+other;
+/* rotating translation samples */
+var sTimer=null, sIdx=0;
+function startSamples(){
+  clearTimeout(sTimer);
+  var list=DATA.samples; if(!list.length) return;
+  sIdx=sIdx%list.length;
+  var ru=document.getElementById("sRU"), en=document.getElementById("sEN"), bars=document.getElementById("bars");
+  function show(first){
+    var x=list[sIdx];
+    function put(){ ru.textContent=x.ru; en.textContent=x.en; ru.classList.remove("out"); setTimeout(function(){ en.classList.remove("out"); },180); }
+    [].forEach.call(bars.children,function(b,i){ b.classList.remove("on"); void b.offsetWidth; if(i===sIdx) b.classList.add("on"); });
+    if(first){ put(); } else { ru.classList.add("out"); en.classList.add("out"); setTimeout(put,450); }
+    sTimer=setTimeout(function(){ if(!document.getElementById("sRU")) return; sIdx=(sIdx+1)%list.length; show(false); },5000);
   }
-  el.textContent = words[morphIdx].ru; show();
-  morphTimer = setInterval(function(){
-    if(!document.getElementById("morph")){ clearInterval(morphTimer); return; }
-    if(morphSide===0){ morphSide=1; } else { morphSide=0; morphIdx=(morphIdx+1)%words.length; }
-    show();
-  }, 2400);
+  show(true);
 }
 
-/* ---------- admin editor ---------- */
-var ART=null, CAN_EDIT=false, drawerOpen=false, activeTab="general", dirty=false, busy=false;
-var F = { // field labels
-  name:{en:"Name",ru:"Имя"},initials:{en:"Initials (logo)",ru:"Инициалы (логотип)"},role:{en:"Role",ru:"Должность"},availability:{en:"Availability badge",ru:"Статус доступности"},
-  heroTitle:{en:"Headline",ru:"Заголовок"},heroText:{en:"Intro text",ru:"Вступительный текст"},email:{en:"Email",ru:"Email"},phone:{en:"Phone",ru:"Телефон"},telegram:{en:"Telegram",ru:"Telegram"},location:{en:"Location",ru:"Местоположение"},
-  ru:{en:"Russian word",ru:"Русское слово"},en:{en:"English word",ru:"Английское слово"},icon:{en:"Icon",ru:"Иконка"},title:{en:"Title",ru:"Название"},text:{en:"Text",ru:"Текст"},price:{en:"Price",ru:"Цена"},
-  level:{en:"Level",ru:"Уровень"},format:{en:"Format",ru:"Формат"},feature:{en:"Highlight as most requested",ru:"Выделить как популярное"},quote:{en:"Quote",ru:"Отзыв"},author:{en:"Author",ru:"Автор"},
-  documentsNote:{en:"Note under the list",ru:"Примечание под списком"},aboutText:{en:"About text",ru:"Текст о себе"}
-};
-function fl(k){ return (F[k]&&F[k][LANG])||k; }
-var TABS = [
-  {id:"general",label:"tGeneral",help:"helpGeneral",kind:"obj",path:"site",fields:[["name","text"],["initials","text"],["role","bi"],["availability","bi"],["heroTitle","bi"],["heroText","bia"],["location","bi"],["email","text"],["phone","text"],["telegram","text"]]},
-  {id:"hero",label:"tHero",help:"helpHero",kind:"list",path:"heroWords",fields:[["ru","text"],["en","text"]],blank:{ru:"",en:""}},
-  {id:"services",label:"tServices",help:"helpList",kind:"list",path:"services",fields:[["icon","icon"],["title","bi"],["text","bia"],["price","bi"]],blank:{icon:"globe",title:{en:"",ru:""},text:{en:"",ru:""},price:{en:"",ru:""}}},
-  {id:"docs",label:"tDocs",help:"helpList",kind:"list",path:"documents",fields:[["name","bi"]],blank:{name:{en:"",ru:""}},extra:[["documentsNote","bia"]]},
-  {id:"courses",label:"tCourses",help:"helpList",kind:"list",path:"courses",fields:[["feature","bool"],["title","bi"],["level","bi"],["text","bia"],["format","bi"],["price","bi"]],blank:{feature:false,title:{en:"",ru:""},level:{en:"",ru:""},text:{en:"",ru:""},format:{en:"",ru:""},price:{en:"",ru:""}}},
-  {id:"about",label:"tAbout",help:"helpList",kind:"list",path:"credentials",fields:[["text","bi"]],blank:{text:{en:"",ru:""}},extraAbout:true},
-  {id:"reviews",label:"tReviews",help:"helpList",kind:"list",path:"testimonials",fields:[["quote","bia"],["author","text"],["role","bi"]],blank:{quote:{en:"",ru:""},author:"",role:{en:"",ru:""}}}
+/* ---------- admin editor (works inside Claude only) ---------- */
+var ART=null, CAN_EDIT=false, drawerOpen=false, tabId="general", dirty=false, busy=false;
+var FL={name:["Full name","Полное имя"],initials:["Initials","Инициалы"],title:["Title","Должность"],availability:["Availability","Статус"],intro:["Intro text","Вступление"],location:["Location","Местоположение"],email:["Email","Email"],phone:["Phone","Телефон"],telegram:["Telegram","Telegram"],
+  ru:["Russian sentence","Предложение на русском"],en:["English translation","Перевод на английский"],text:["Text","Текст"],label:["Item","Позиция"],price:["Price","Цена"],type:["Type","Тип"],pair:["Language pair","Языковая пара"],year:["Year","Год"],quote:["Quote","Отзыв"],author:["Author","Автор"],role:["Service","Услуга"],
+  servicesNote:["Note under services","Примечание под услугами"],aboutText:["About text","Текст о себе"],languages:["Languages","Языки"],prices:["Price rows","Строки с ценами"]};
+function fl(k){ var v=FL[k]; return v?(LANG==="ru"?v[1]:v[0]):k; }
+function bi(){ return {en:"",ru:""}; }
+var TABS=[
+  {id:"general",label:"tGeneral",help:"hGeneral",obj:"site",fields:[["name","text"],["title","bi"],["availability","bi"],["intro","bia"],["languages","list",[["text","bi"]],function(){return bi();},true],["location","bi"],["email","text"],["phone","text"],["telegram","text"]]},
+  {id:"samples",label:"tSamples",help:"hSamples",list:"samples",fields:[["ru","area"],["en","area"]],blank:function(){return {ru:"",en:""};}},
+  {id:"about",label:"tAbout",help:"hList",pre:[["about.text","bia","aboutText"]],list:"credentials",fields:[["text","bi"]],blank:function(){return {text:bi()};}},
+  {id:"services",label:"tServices",help:"hList",pre:[["servicesNote","bia","servicesNote"]],list:"services",fields:[["title","bi"],["text","bia"],["prices","list",[["label","bi"],["price","bi"]],function(){return {label:bi(),price:bi()};}]],blank:function(){return {title:bi(),text:bi(),prices:[]};}},
+  {id:"portfolio",label:"tPortfolio",help:"hList",list:"portfolio",fields:[["title","bi"],["type","bi"],["pair","text"],["year","text"],["text","bia"]],blank:function(){return {title:bi(),type:bi(),pair:"RU → EN",year:"",text:bi()};}},
+  {id:"reviews",label:"tReviews",help:"hList",list:"testimonials",fields:[["quote","bia"],["author","text"],["role","bi"]],blank:function(){return {quote:bi(),author:"",role:bi()};}}
 ];
-function getP(path){ return path.split(".").reduce(function(o,k){ return o==null?o:o[k]; },DATA); }
-function setP(path,val){ var ks=path.split("."), o=DATA; for(var i=0;i<ks.length-1;i++){ if(o[ks[i]]==null) o[ks[i]]={}; o=o[ks[i]]; } o[ks[ks.length-1]]=val; }
-function fieldHTML(base,key,type){
-  var p = base ? base+"."+key : key, v = getP(p);
-  var lab = key==="text"&&base==="about"?fl("aboutText"):fl(key);
-  if(type==="text") return '<div class="ed-field"><label>'+esc(lab)+'</label><input data-p="'+p+'" value="'+esc(v||"")+'"></div>';
-  if(type==="bool") return '<div class="ed-field"><label><input type="checkbox" data-p="'+p+'" data-bool="1" '+(v?"checked":"")+' style="width:auto;margin-right:8px">'+esc(lab)+'</label></div>';
-  if(type==="icon") return '<div class="ed-field"><label>'+esc(lab)+'</label><select data-p="'+p+'">'+Object.keys(ICONS).map(function(k){return '<option'+(k===v?' selected':'')+'>'+k+'</option>';}).join("")+'</select></div>';
-  var area = type==="bia"; v = v||{};
-  function inp(l){ return area ? '<textarea data-p="'+p+"."+l+'">'+esc(v[l]||"")+'</textarea>' : '<input data-p="'+p+"."+l+'" value="'+esc(v[l]||"")+'">'; }
-  return '<div class="ed-field"><label>'+esc(lab)+'</label><div class="bi"><div><span class="tag">EN</span>'+inp("en")+'</div><div><span class="tag">RU</span>'+inp("ru")+'</div></div></div>';
-}
-function renderDrawer(){
-  var dr = document.getElementById("drawer");
-  var tab = TABS.filter(function(x){return x.id===activeTab;})[0];
-  var body = '<p class="ed-help">'+t(tab.help)+'</p>';
-  if(tab.kind==="obj"){
-    tab.fields.forEach(function(f){ body += fieldHTML(tab.path,f[0],f[1]); });
-    body += '<p class="ed-help" style="margin-top:18px">'+t("loginNote")+'</p>';
-  } else {
-    if(tab.extraAbout) body += '<div class="ed-item">'+fieldHTML("about","text","bia")+'</div>';
-    if(tab.extra) tab.extra.forEach(function(f){ body += '<div class="ed-item">'+fieldHTML("",f[0],f[1])+'</div>'; });
-    var list = getP(tab.path)||[];
-    list.forEach(function(item,i){
-      var title = item.title?L(item.title):item.name?L(item.name):item.ru?(item.ru+" / "+item.en):item.author?item.author:item.text?L(item.text):"";
-      body += '<div class="ed-item"><div class="ed-item-head"><b>'+(i+1)+'. '+esc(title||"—")+'</b><div class="ctrl">'+
-        '<button type="button" data-act="up" data-i="'+i+'" aria-label="Move up">↑</button><button type="button" data-act="down" data-i="'+i+'" aria-label="Move down">↓</button>'+
-        '<button type="button" class="del" data-act="del" data-i="'+i+'">'+t("remove")+'</button></div></div>';
-      tab.fields.forEach(function(f){ body += fieldHTML(tab.path+"."+i,f[0],f[1]); });
-      body += '</div>';
+function getP(p){ return p.split(".").reduce(function(o,k){return o==null?o:o[k];},DATA); }
+function setP(p,v){ var k=p.split("."),o=DATA; for(var i=0;i<k.length-1;i++) o=o[k[i]]; o[k[k.length-1]]=v; }
+// languages stored as array of bilingual objects; editor wraps them as {text:{}} rows
+function field(path,key,type,sub,blank,flatLang,labelKey){
+  var p=path?path+"."+key:key, v=getP(p), lab=fl(labelKey||key);
+  if(type==="text") return '<div class="ef"><label>'+esc(lab)+'</label><input data-p="'+p+'" value="'+esc(v||"")+'"></div>';
+  if(type==="area") return '<div class="ef"><label>'+esc(lab)+'</label><textarea data-p="'+p+'">'+esc(v||"")+'</textarea></div>';
+  if(type==="list"){
+    var arr=v||[], h='<div class="ef"><label>'+esc(lab)+'</label>';
+    arr.forEach(function(it,i){
+      h+='<div class="item"><div class="ihead"><b>'+(i+1)+'</b>'+ctrl(p,i)+'</div>';
+      if(flatLang) h+=biField(p+"."+i,"",false);
+      else sub.forEach(function(f){ h+=field(p+"."+i,f[0],f[1]); });
+      h+='</div>';
     });
-    body += '<button type="button" class="add" data-act="add">+ '+t("addItem")+'</button>';
+    SUBBLANK[p]=blank;
+    return h+'<button type="button" class="add" data-act="add" data-l="'+p+'">+ '+t("add")+'</button></div>';
   }
-  dr.innerHTML = '<header><h2>'+t("editorTitle")+'</h2><button class="close" type="button" id="dclose" aria-label="Close">×</button></header>'+
-    '<div class="tabs" role="tablist">'+TABS.map(function(x){return '<button type="button" role="tab" data-tab="'+x.id+'" aria-selected="'+(x.id===activeTab)+'">'+t(x.label)+'</button>';}).join("")+'</div>'+
-    '<div class="dbody" id="dbody">'+body+'</div>'+
-    '<div class="dfoot"><span class="status" id="dstatus">'+(dirty?t("unsaved"):t("nochanges"))+'</span><button class="btn btn-ghost btn-sm" type="button" id="ddiscard" '+(dirty?'':'disabled')+'>'+t("discard")+'</button><button class="btn btn-primary btn-sm" type="button" id="dpublish" '+(dirty&&!busy?'':'disabled')+'>'+t("publish")+'</button></div>';
+  return '<div class="ef"><label>'+esc(lab)+'</label>'+biField(p,"",type==="bia")+'</div>';
 }
-var reTimer=null;
-function markDirty(){
-  dirty = JSON.stringify(DATA)!==JSON.stringify(ORIGINAL);
-  var st=document.getElementById("dstatus"); if(st) st.textContent = dirty?t("unsaved"):t("nochanges");
-  var pb=document.getElementById("dpublish"); if(pb) pb.disabled=!dirty||busy;
-  var db=document.getElementById("ddiscard"); if(db) db.disabled=!dirty;
+function biField(p,_,area){
+  var v=getP(p)||{};
+  function inp(l){ return area?'<textarea data-p="'+p+"."+l+'">'+esc(v[l]||"")+'</textarea>':'<input data-p="'+p+"."+l+'" value="'+esc(v[l]||"")+'">'; }
+  return '<div class="bi"><div><em>EN</em>'+inp("en")+'</div><div><em>RU</em>'+inp("ru")+'</div></div>';
+}
+function ctrl(listPath,i){ return '<div class="ctrl"><button type="button" data-act="up" data-l="'+listPath+'" data-i="'+i+'" aria-label="Move up">↑</button><button type="button" data-act="down" data-l="'+listPath+'" data-i="'+i+'" aria-label="Move down">↓</button><button type="button" class="del" data-act="del" data-l="'+listPath+'" data-i="'+i+'">'+t("remove")+'</button></div>'; }
+var SUBBLANK={};
+function renderDrawer(){
+  var tab=TABS.filter(function(x){return x.id===tabId;})[0], b='<p class="help">'+t(tab.help)+'</p>';
+  SUBBLANK={};
+  if(tab.obj){ tab.fields.forEach(function(f){ b+=field(tab.obj,f[0],f[1],f[2],f[3],f[4]); }); }
+  else{
+    (tab.pre||[]).forEach(function(f){ b+='<div class="item">'+field("",f[0],f[1],null,null,false,f[2])+'</div>'; });
+    SUBBLANK[tab.list]=tab.blank;
+    (getP(tab.list)||[]).forEach(function(it,i){
+      var name=it.title?L(it.title):it.ru?it.ru:it.author?it.author:it.text?L(it.text):"";
+      b+='<div class="item"><div class="ihead"><b>'+(i+1)+'. '+esc(name||"…")+'</b>'+ctrl(tab.list,i)+'</div>';
+      tab.fields.forEach(function(f){ b+=field(tab.list+"."+i,f[0],f[1],f[2],f[3]); });
+      b+='</div>';
+    });
+    b+='<button type="button" class="add" data-act="add" data-l="'+tab.list+'">+ '+t("add")+'</button>';
+  }
+  document.getElementById("drawer").innerHTML='<header><h2>'+t("editor")+'</h2><button class="xbtn" type="button" id="dx" aria-label="Close">×</button></header>'+
+    '<div class="tabs" role="tablist">'+TABS.map(function(x){return '<button type="button" role="tab" data-tab="'+x.id+'" aria-selected="'+(x.id===tabId)+'">'+t(x.label)+'</button>';}).join("")+'</div>'+
+    '<div class="dbody" id="dbody">'+b+'</div>'+
+    '<div class="dfoot"><span class="st" id="dst">'+(dirty?t("unsaved"):t("nochanges"))+'</span><button class="btn btn-line btn-sm" type="button" id="ddisc" '+(dirty?'':'disabled')+'>'+t("discard")+'</button><button class="btn btn-main btn-sm" type="button" id="dpub" '+(dirty&&!busy?'':'disabled')+'>'+t("publish")+'</button></div>';
+}
+var rt=null;
+function changed(){
+  dirty=JSON.stringify(DATA)!==JSON.stringify(ORIGINAL);
+  var st=document.getElementById("dst"); if(st) st.textContent=dirty?t("unsaved"):t("nochanges");
+  var p=document.getElementById("dpub"); if(p) p.disabled=!dirty||busy;
+  var d=document.getElementById("ddisc"); if(d) d.disabled=!dirty;
   try{ if(dirty) sessionStorage.setItem("site-draft",JSON.stringify(DATA)); else sessionStorage.removeItem("site-draft"); }catch(e){}
-  clearTimeout(reTimer); reTimer=setTimeout(function(){ renderBar(); renderMain(); document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); },250);
+  clearTimeout(rt); rt=setTimeout(function(){ renderBar(); renderMain(); document.querySelectorAll(".rv").forEach(function(el){el.classList.add("in");}); },250);
 }
-function openDrawer(){ drawerOpen=true; renderDrawer(); document.getElementById("drawer").classList.add("open"); document.getElementById("drawer").setAttribute("aria-hidden","false"); document.getElementById("dbg").classList.add("open"); }
-function closeDrawer(){ drawerOpen=false; document.getElementById("drawer").classList.remove("open"); document.getElementById("drawer").setAttribute("aria-hidden","true"); document.getElementById("dbg").classList.remove("open"); }
-function renderFab(){ var f=document.getElementById("fab"); f.innerHTML='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg>'+t("edit"); f.classList.toggle("show",CAN_EDIT); }
-function toast(msg){ var el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(function(){el.classList.remove("show");},2600); }
+function openD(){ drawerOpen=true; renderDrawer(); var d=document.getElementById("drawer"); d.classList.add("open"); d.setAttribute("aria-hidden","false"); document.getElementById("dbg").classList.add("open"); }
+function closeD(){ drawerOpen=false; var d=document.getElementById("drawer"); d.classList.remove("open"); d.setAttribute("aria-hidden","true"); document.getElementById("dbg").classList.remove("open"); }
+function renderFab(){ var f=document.getElementById("fab"); f.textContent=t("edit"); f.classList.toggle("show",CAN_EDIT); }
+function toast(m){ var el=document.getElementById("toast"); el.textContent=m; el.classList.add("show"); clearTimeout(toast.t); toast.t=setTimeout(function(){el.classList.remove("show");},2600); }
 
-document.getElementById("fab").addEventListener("click",openDrawer);
-document.getElementById("dbg").addEventListener("click",closeDrawer);
-document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&drawerOpen) closeDrawer(); });
-var drawer = document.getElementById("drawer");
-drawer.addEventListener("input",function(e){
-  var p=e.target.getAttribute("data-p"); if(!p) return;
-  setP(p, e.target.getAttribute("data-bool")?e.target.checked:e.target.value); markDirty();
-});
-drawer.addEventListener("change",function(e){ if(e.target.getAttribute("data-bool")||e.target.tagName==="SELECT"){ var p=e.target.getAttribute("data-p"); if(p){ setP(p, e.target.getAttribute("data-bool")?e.target.checked:e.target.value); markDirty(); } } });
-drawer.addEventListener("click",function(e){
+document.getElementById("fab").addEventListener("click",openD);
+document.getElementById("dbg").addEventListener("click",closeD);
+document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&drawerOpen) closeD(); });
+var dr=document.getElementById("drawer");
+dr.addEventListener("input",function(e){ var p=e.target.getAttribute("data-p"); if(!p) return; setP(p,e.target.value); changed(); });
+dr.addEventListener("click",function(e){
   var b=e.target.closest("button"); if(!b) return;
-  if(b.id==="dclose") return closeDrawer();
-  if(b.dataset.tab){ activeTab=b.dataset.tab; renderDrawer(); return; }
-  if(b.id==="ddiscard"){ DATA=JSON.parse(JSON.stringify(ORIGINAL)); markDirty(); renderDrawer(); return; }
-  if(b.id==="dpublish"){ publish(); return; }
-  var tab = TABS.filter(function(x){return x.id===activeTab;})[0], list=getP(tab.path), i=+b.dataset.i;
-  if(b.dataset.act==="add"){ list.push(JSON.parse(JSON.stringify(tab.blank))); }
-  else if(b.dataset.act==="del"){ list.splice(i,1); }
-  else if(b.dataset.act==="up"&&i>0){ list.splice(i-1,0,list.splice(i,1)[0]); }
-  else if(b.dataset.act==="down"&&i<list.length-1){ list.splice(i+1,0,list.splice(i,1)[0]); }
+  if(b.id==="dx") return closeD();
+  if(b.dataset.tab){ tabId=b.dataset.tab; renderDrawer(); return; }
+  if(b.id==="ddisc"){ DATA=JSON.parse(JSON.stringify(ORIGINAL)); changed(); renderDrawer(); return; }
+  if(b.id==="dpub"){ publish(); return; }
+  var lp=b.dataset.l; if(!lp) return;
+  var list=getP(lp); if(!list){ setP(lp,[]); list=getP(lp); }
+  var i=+b.dataset.i, a=b.dataset.act;
+  if(a==="add") list.push(SUBBLANK[lp]?SUBBLANK[lp]():bi());
+  else if(a==="del") list.splice(i,1);
+  else if(a==="up"&&i>0) list.splice(i-1,0,list.splice(i,1)[0]);
+  else if(a==="down"&&i<list.length-1) list.splice(i+1,0,list.splice(i,1)[0]);
   else return;
-  markDirty(); var sc=document.getElementById("dbody").scrollTop; renderDrawer(); document.getElementById("dbody").scrollTop = b.dataset.act==="add"?1e6:sc;
+  changed(); var sc=document.getElementById("dbody").scrollTop; renderDrawer(); document.getElementById("dbody").scrollTop=sc;
 });
 
-var HEAD = '<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n<title>Russian–English Translator & Tutor<\/title>\n'+
-  '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
-  '<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic" rel="stylesheet">\n';
 function buildDoc(data){
-  var css = document.getElementById("css").textContent;
-  var app = document.getElementById("app").textContent;
-  var json = JSON.stringify(data).replace(/</g,"\\u003c");
-  return '<!DOCTYPE html>\n<html lang="en">\n<head>\n'+HEAD+'<style id="css">'+css+'<\/style>\n<\/head>\n<body>\n<script id="site-data" type="application/json">'+json+'<\/script>\n<script id="app">'+app+'<\/script>\n<\/body>\n<\/html>\n';
+  var css=document.getElementById("css").textContent, app=document.getElementById("app").textContent;
+  var json=JSON.stringify(data).replace(/</g,"\\u003c");
+  return '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n'+
+    '<title>'+esc(data.site.name)+', Russian–English translator<\/title>\n<meta name="description" content="Russian–English document translation, interpreting and editing by '+esc(data.site.name)+'.">\n'+
+    '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'+
+    '<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">\n'+
+    '<style id="css">'+css+'<\/style>\n<\/head>\n<body>\n<script id="site-data" type="application/json">'+json+'<\/script>\n<script id="app">'+app+'<\/script>\n<\/body>\n<\/html>\n';
 }
 function publish(){
   if(!ART||busy||!dirty) return;
-  busy=true; var st=document.getElementById("dstatus"); if(st) st.textContent=t("publishing"); document.getElementById("dpublish").disabled=true;
-  var title = DATA.site.name;
+  busy=true; document.getElementById("dst").textContent=t("publishing"); document.getElementById("dpub").disabled=true;
   ART.publish(buildDoc(DATA)).then(function(){
     try{sessionStorage.removeItem("site-draft");}catch(e){}
     busy=false; ORIGINAL=JSON.parse(JSON.stringify(DATA)); dirty=false; toast(t("published")); if(drawerOpen) renderDrawer();
   }).catch(function(err){
-    busy=false; var code = err&&err.code;
-    if(code==="conflict") return; // page reloads to the newest version
-    if(code==="not_writer"||code==="not_granted"){ CAN_EDIT=false; renderFab(); closeDrawer(); toast(t("readonly")); return; }
-    toast(t("failed")); markDirty();
+    busy=false; var c=err&&err.code;
+    if(c==="conflict") return;
+    if(c==="not_writer"||c==="not_granted"){ CAN_EDIT=false; renderFab(); closeD(); toast(t("readonly")); return; }
+    toast(t("failed")); changed();
   });
 }
 
-/* restore an unsent draft after a reload */
-try{ var dr=sessionStorage.getItem("site-draft"); if(dr){ var parsed=JSON.parse(dr); if(JSON.stringify(parsed)!==JSON.stringify(ORIGINAL)){ DATA=parsed; dirty=true; } } }catch(e){}
-
+try{ var draft=sessionStorage.getItem("site-draft"); if(draft){ var pd=JSON.parse(draft); if(pd.site&&pd.portfolio&&JSON.stringify(pd)!==JSON.stringify(ORIGINAL)){ DATA=pd; dirty=true; } } }catch(e){}
 renderAll();
 
-if(window.claude && window.claude.use){
-  Promise.all([window.claude.use("user"), window.claude.use("artifact")]).then(function(r){
-    var user=r[0]; ART=r[1];
-    if(!user||!ART) return;
-    return user.canEdit().then(function(ok){ CAN_EDIT=!!ok; renderFab(); if(CAN_EDIT&&dirty) openDrawer(); });
+if(window.claude&&window.claude.use){
+  Promise.all([window.claude.use("user"),window.claude.use("artifact")]).then(function(r){
+    var user=r[0]; ART=r[1]; if(!user||!ART) return;
+    return user.canEdit().then(function(ok){ CAN_EDIT=!!ok; renderFab(); if(CAN_EDIT&&dirty) openD(); });
   }).catch(function(){});
 }
 })();
